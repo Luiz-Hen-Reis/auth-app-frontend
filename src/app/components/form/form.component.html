@@ -1,0 +1,31 @@
+<form class="form-container" [formGroup]="formGroup">
+  <div class="input-field">
+    <label for="email">Email</label>
+    <input type="email" name="email" formControlName="email" />
+  </div>
+  <div class="input-field" *ngIf="!isLoginPage">
+    <label for="firstName">Firstname</label>
+    <input type="text" name="firstName" formControlName="firstName" />
+  </div>
+  <div class="input-field" *ngIf="!isLoginPage">
+    <label for="lastName">Lastname</label>
+    <input type="text" name="lastName" formControlName="lastName" />
+  </div>
+  <div class="input-field">
+    <label for="password">Password</label>
+    <input type="password" name="password" formControlName="password" />
+  </div>
+  <p class="form-message">
+    Not registered yet?
+    <span routerLink="/auth/register" *ngIf="isLoginPage; else signIn"
+      >Sign up</span
+    >
+  </p>
+  <div class="input-field">
+    <button (click)="onSubmit()">Login</button>
+  </div>
+</form>
+
+<ng-template #signIn>
+  <span routerLink="/auth/login">Sign In</span>
+</ng-template>
