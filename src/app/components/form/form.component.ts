@@ -10,12 +10,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class FormComponent {
   isLoginPage: boolean = true;
   public formGroup!: FormGroup;
+  urlString = this.router.url;
 
   constructor(private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    const urlString = this.router.url;
-
     this.formGroup = this.formBuilder.group({
       email: '',
       firstName: '',
@@ -23,7 +22,7 @@ export class FormComponent {
       password: '',
     });
 
-    if (urlString.includes('login')) {
+    if (this.urlString.includes('login')) {
       this.isLoginPage = true;
     } else {
       this.isLoginPage = false;
