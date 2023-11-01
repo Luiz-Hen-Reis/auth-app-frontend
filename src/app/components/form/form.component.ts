@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormData } from 'src/app/types/form-data';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-form',
@@ -12,10 +14,14 @@ export class FormComponent {
   public formGroup!: FormGroup;
   urlString = this.router.url;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthServiceService
+  ) {}
 
   ngOnInit() {
-    this.formGroup = this.formBuilder.group({
+    this.formGroup = this.formBuilder.group<FormData>({
       email: '',
       firstName: '',
       lastName: '',
@@ -29,5 +35,7 @@ export class FormComponent {
     }
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.authService.authenticate(this.isLoginPage, this.formGroup.value);
+  }
 }
